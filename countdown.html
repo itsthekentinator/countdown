@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Web Timer</title>
+  <style>
+    .timer {
+      font-size: 48px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="timer">00:00:00</div>
+
+  <script>
+    var timerElement = document.querySelector('.timer');
+    var seconds = 0;
+    var intervalId;
+
+    function startTimer() {
+      intervalId = setInterval(updateTimer, 1000);
+    }
+
+    function stopTimer() {
+      clearInterval(intervalId);
+    }
+
+    function resetTimer() {
+      stopTimer();
+      seconds = 0;
+      updateTimer();
+    }
+
+    function updateTimer() {
+      var hours = Math.floor(seconds / 3600);
+      var minutes = Math.floor((seconds % 3600) / 60);
+      var remainingSeconds = seconds % 60;
+
+      var timerText = hours.toString().padStart(2, '0') + ':' +
+                      minutes.toString().padStart(2, '0') + ':' +
+                      remainingSeconds.toString().padStart(2, '0');
+      
+      timerElement.textContent = timerText;
+      seconds++;
+    }
+
+    startTimer(); // Start the timer automatically
+
+    // Example buttons to control the timer
+    var startButton = document.createElement('button');
+    startButton.textContent = 'Start';
+    startButton.addEventListener('click', startTimer);
+    document.body.appendChild(startButton);
+
+    var stopButton = document.createElement('button');
+    stopButton.textContent = 'Stop';
+    stopButton.addEventListener('click', stopTimer);
+    document.body.appendChild(stopButton);
+
+    var resetButton = document.createElement('button');
+    resetButton.textContent = 'Reset';
+    resetButton.addEventListener('click', resetTimer);
+    document.body.appendChild(resetButton);
+  </script>
+</body>
+</html>
